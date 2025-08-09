@@ -1,5 +1,5 @@
 name: word_tools
-description: A simple package for comparing words and sentences.
+description: A simple package for comparing words and word sequences.
 version: 0.1.0+1
 
 
