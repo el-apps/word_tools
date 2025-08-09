@@ -1,0 +1,12 @@
+name: word_tools
+description: A simple package for comparing words and sentences.
+version: 0.1.0+1
+
+
+environment:
+  sdk: ^3.8.0
+
+dev_dependencies:
+  mocktail: ^1.0.4
+  test: ^1.26.2
+  very_good_analysis: ^9.0.0
