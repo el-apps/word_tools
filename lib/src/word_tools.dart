@@ -10,7 +10,6 @@ bool doWordsMatch(String firstWord, String secondWord) {
 }
 
 String _removePunctuation(String word) {
-  // AI!: handle the following TODO
   // TODO(pertempto): only keep "word" characters
-  return word;
+  return word.replaceAll(RegExp(r'[^\w]'), '');
 }
