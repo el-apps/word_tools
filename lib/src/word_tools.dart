@@ -12,7 +12,9 @@ bool doWordsMatch(String firstWord, String secondWord) {
 String _removePunctuation(String word) => word.replaceAll(RegExp(r'[^\w]'), '');
 
 List<String> _getVariations(String word) {
-  final variations = [word];
-  // AI!: add add variations of the word with one letter removed.
+  final variations = <String>[word];
+  for (var i = 0; i < word.length; i++) {
+    variations.add(word.substring(0, i) + word.substring(i + 1));
+  }
   return variations;
 }
