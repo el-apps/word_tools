@@ -9,7 +9,4 @@ bool doWordsMatch(String firstWord, String secondWord) {
   return firstWordNormalized == secondWordNormalized;
 }
 
-String _removePunctuation(String word) {
-  // TODO(pertempto): only keep "word" characters
-  return word.replaceAll(RegExp(r'[^\w]'), '');
-}
+String _removePunctuation(String word) => word.replaceAll(RegExp(r'[^\w]'), '');

@@ -16,5 +16,9 @@ void main() {
     test('ignores capitalization', () {
       expect(doWordsMatch('hello', 'hElLo'), equals(true));
     });
+
+    test('ignores punctuation', () {
+      expect(doWordsMatch('hello', '#h@e"l,l;o.!?'), equals(true));
+    });
   });
 }
