@@ -10,8 +10,22 @@ bool doWordSequencesMatch(String firstWordSequence, String secondWordSequence) {
   final secondWordSequenceNormalized = _removePunctuation(
     secondWordSequence.toLowerCase(),
   );
+  final firstWordList = firstWordSequenceNormalized.split(RegExp(r'\s+'));
+  final secondWordList = secondWordSequenceNormalized.split(RegExp(r'\s+'));
+  return _compareWordLists(firstWordList, secondWordList);
+}
+
+bool _compareWordLists(
+  List<String> firstWordList,
+  List<String> secondWordList,
+) {
   // TODO(pertempto): handle missing words
-  return firstWordSequenceNormalized == secondWordSequenceNormalized;
+  if (firstWordList.length != secondWordList.length) {
+    return false;
+  }
+  return firstWordList.asMap().entries.every(
+    (e) => e.value == secondWordList[e.key],
+  );
 }
 
 /// Compares two words to check if they match.
@@ -27,7 +41,8 @@ bool doWordsMatch(String firstWord, String secondWord) {
   return firstWordVariations.intersection(secondWordVariations).isNotEmpty;
 }
 
-String _removePunctuation(String word) => word.replaceAll(RegExp(r'[^\w]'), '');
+String _removePunctuation(String word) =>
+    word.replaceAll(RegExp(r'[^\w\s]'), '');
 
 Set<String> _getVariations(String word) {
   final variations = <String>{word};

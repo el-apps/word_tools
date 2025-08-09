@@ -14,6 +14,26 @@ void main() {
         equals(true),
       );
     });
+
+    test('correctly handles entirely different word sequences', () {
+      expect(
+        doWordSequencesMatch(
+          'Hello world, this is a word sequence.',
+          'hello world',
+        ),
+        equals(false),
+      );
+    });
+
+    test('ignores extra whitespace between words', () {
+      expect(
+        doWordSequencesMatch(
+          'Hello world, this is a word sequence.',
+          'Hello    world, \tthis\t is  a     word    sequence.',
+        ),
+        equals(true),
+      );
+    });
   });
 
   group('doWordsMatch', () {
