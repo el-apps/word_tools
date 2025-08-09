@@ -1,7 +1,7 @@
 /// Compares two words to check if they match.
 /// "Matching" ignores the following:
 /// - capitalization
-/// - punctunation
+/// - punctuation
 /// - missing letters (a single letter can be missing or incorrect)
 bool doWordsMatch(String firstWord, String secondWord) {
   final firstWordNormalized = _removePunctuation(firstWord.toLowerCase());
@@ -10,3 +10,9 @@ bool doWordsMatch(String firstWord, String secondWord) {
 }
 
 String _removePunctuation(String word) => word.replaceAll(RegExp(r'[^\w]'), '');
+
+List<String> _getVariations(String word) {
+  final variations = [word];
+  // AI!: add add variations of the word with one letter removed.
+  return variations;
+}
