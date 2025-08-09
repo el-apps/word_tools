@@ -6,13 +6,16 @@
 bool doWordsMatch(String firstWord, String secondWord) {
   final firstWordNormalized = _removePunctuation(firstWord.toLowerCase());
   final secondWordNormalized = _removePunctuation(secondWord.toLowerCase());
-  return firstWordNormalized == secondWordNormalized;
+  final firstWordVariations = _getVariations(firstWordNormalized);
+  final secondWordVariations = _getVariations(secondWordNormalized);
+  return firstWordVariations.intersection(secondWordVariations).isNotEmpty;
 }
 
 String _removePunctuation(String word) => word.replaceAll(RegExp(r'[^\w]'), '');
 
-List<String> _getVariations(String word) {
-  final variations = <String>[word];
+Set<String> _getVariations(String word) {
+  final variations = <String>{word};
+  // Add all variations of the word with one letter removed
   for (var i = 0; i < word.length; i++) {
     variations.add(word.substring(0, i) + word.substring(i + 1));
   }

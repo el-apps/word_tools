@@ -20,5 +20,21 @@ void main() {
     test('ignores punctuation', () {
       expect(doWordsMatch('hello', '#h@e"l,l;o.!?'), equals(true));
     });
+
+    test('allows one missing letter', () {
+      expect(doWordsMatch('hello', 'helo'), equals(true));
+    });
+
+    test('does not allow two missing letters', () {
+      expect(doWordsMatch('hello', 'hlo'), equals(false));
+    });
+
+    test('allows one changed letter', () {
+      expect(doWordsMatch('hello', 'hillo'), equals(true));
+    });
+
+    test('does not allow two changed letters', () {
+      expect(doWordsMatch('hello', 'hiloo'), equals(false));
+    });
   });
 }
