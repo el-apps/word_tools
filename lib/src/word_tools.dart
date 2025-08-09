@@ -4,7 +4,13 @@
 /// - punctunation
 /// - missing letters (a single letter can be missing or incorrect)
 bool doWordsMatch(String firstWord, String secondWord) {
-  final firstWordNormalized = firstWord.toLowerCase();
-  final secondWordNormalized = secondWord.toLowerCase();
+  final firstWordNormalized = _removePunctuation(firstWord.toLowerCase());
+  final secondWordNormalized = _removePunctuation(secondWord.toLowerCase());
   return firstWordNormalized == secondWordNormalized;
+}
+
+String _removePunctuation(String word) {
+  // AI!: handle the following TODO
+  // TODO(pertempto): only keep "word" characters
+  return word;
 }
