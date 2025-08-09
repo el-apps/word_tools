@@ -4,6 +4,18 @@ import 'package:test/test.dart';
 import 'package:word_tools/word_tools.dart';
 
 void main() {
+  group('doParagraphsMatch', () {
+    test('correctly handles identical sequences', () {
+      expect(
+        doWordSequencesMatch(
+          'Hello world, this is a word sequence.',
+          'Hello world, this is a word sequence.',
+        ),
+        equals(true),
+      );
+    });
+  });
+
   group('doWordsMatch', () {
     test('correctly handles identical words', () {
       expect(doWordsMatch('hello', 'hello'), equals(true));

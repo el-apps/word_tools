@@ -1,3 +1,19 @@
+/// Compares two word sequences to check if they match.
+/// "Matching" ignores the following:
+/// - capitalization
+/// - punctuation
+/// - missing words (up to 10% of the words can be missing or incorrect)
+bool doWordSequencesMatch(String firstWordSequence, String secondWordSequence) {
+  final firstWordSequenceNormalized = _removePunctuation(
+    firstWordSequence.toLowerCase(),
+  );
+  final secondWordSequenceNormalized = _removePunctuation(
+    secondWordSequence.toLowerCase(),
+  );
+  // TODO(pertempto): handle missing words
+  return firstWordSequenceNormalized == secondWordSequenceNormalized;
+}
+
 /// Compares two words to check if they match.
 /// "Matching" ignores the following:
 /// - capitalization
