@@ -8,5 +8,13 @@ void main() {
     test('correctly handles identical words', () {
       expect(doWordsMatch('hello', 'hello'), equals(true));
     });
+
+    test('correctly handles entirely different words', () {
+      expect(doWordsMatch('hello', 'hi'), equals(false));
+    });
+
+    test('ignores capitalization', () {
+      expect(doWordsMatch('hello', 'hElLo'), equals(true));
+    });
   });
 }

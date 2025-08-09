@@ -4,5 +4,7 @@
 /// - punctunation
 /// - missing letters (a single letter can be missing or incorrect)
 bool doWordsMatch(String firstWord, String secondWord) {
-  return firstWord == secondWord;
+  final firstWordNormalized = firstWord.toLowerCase();
+  final secondWordNormalized = secondWord.toLowerCase();
+  return firstWordNormalized == secondWordNormalized;
 }
