@@ -18,7 +18,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Run Code Review Bot
         env:
           OPENROUTER_KEY: ${{ secrets.API_KEY_CODE_REVIEW_BOT }}
