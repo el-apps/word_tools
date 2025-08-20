@@ -6,10 +6,10 @@
 bool doWordSequencesMatch(String firstWordSequence, String secondWordSequence) {
   final firstWordSequenceNormalized = _removePunctuation(
     firstWordSequence.toLowerCase(),
-  );
+  ).trim();
   final secondWordSequenceNormalized = _removePunctuation(
     secondWordSequence.toLowerCase(),
-  );
+  ).trim();
   final firstWordList = firstWordSequenceNormalized.split(RegExp(r'\s+'));
   final secondWordList = secondWordSequenceNormalized.split(RegExp(r'\s+'));
   return _compareWordLists(firstWordList, secondWordList);

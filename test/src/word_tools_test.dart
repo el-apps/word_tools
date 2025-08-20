@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:word_tools/word_tools.dart';
 
 void main() {
-  group('doParagraphsMatch', () {
+  group('doWordSequencesMatch', () {
     test('correctly handles identical sequences', () {
       expect(
         doWordSequencesMatch(
@@ -30,6 +30,36 @@ void main() {
         doWordSequencesMatch(
           'Hello world, this is a word sequence.',
           'Hello    world, \tthis\t is  a     word    sequence.',
+        ),
+        equals(true),
+      );
+    });
+
+    test('ignores extra whitespace at the beginning', () {
+      expect(
+        doWordSequencesMatch(
+          'Hello world, this is a word sequence.',
+          ' Hello world, this is a word sequence.',
+        ),
+        equals(true),
+      );
+    });
+
+    test('ignores extra whitespace at the end', () {
+      expect(
+        doWordSequencesMatch(
+          'Hello world, this is a word sequence.',
+          'Hello world, this is a word sequence. ',
+        ),
+        equals(true),
+      );
+    });
+
+    test('John 1:1', () {
+      expect(
+        doWordSequencesMatch(
+          'In the beginning was the Word, and the Word was with God, and the Word was God.',
+          'In the beginning was the word, and the word was with God, and the word was God.',
         ),
         equals(true),
       );
