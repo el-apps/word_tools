@@ -1,54 +1,54 @@
-/// Compares two word sequences to check if they match.
-/// "Matching" ignores the following:
-/// - capitalization
-/// - punctuation
-/// - missing words (up to 10% of the words can be missing or incorrect)
-bool doWordSequencesMatch(String firstWordSequence, String secondWordSequence) {
-  final firstWordSequenceNormalized = _removePunctuation(
-    firstWordSequence.toLowerCase(),
-  );
-  final secondWordSequenceNormalized = _removePunctuation(
-    secondWordSequence.toLowerCase(),
-  );
-  final firstWordList = firstWordSequenceNormalized.split(RegExp(r'\s+'));
-  final secondWordList = secondWordSequenceNormalized.split(RegExp(r'\s+'));
-  return _compareWordLists(firstWordList, secondWordList);
-}
+import 'dart:math';
 
-bool _compareWordLists(
-  List<String> firstWordList,
-  List<String> secondWordList,
-) {
-  // TODO(pertempto): handle missing words
-  if (firstWordList.length != secondWordList.length) {
-    return false;
+/// Grades the similarity between two word sequences on a scale of 0.00 to 1.00.
+double compareWordSequences(String expectedInput, String actualInput) {
+  final expectedLetters = expectedInput.toLowerCase().replaceAll(
+    RegExp(r'[^\w]'),
+    '',
+  );
+  final actualLetters = actualInput.toLowerCase().replaceAll(
+    RegExp(r'[^\w]'),
+    '',
+  );
+  if (expectedLetters.isEmpty) {
+    return actualLetters.isEmpty ? 1 : 0;
   }
-  return firstWordList.asMap().entries.every(
-    (e) => e.value == secondWordList[e.key],
-  );
+  final distance = _levenshteinDistance(expectedLetters, actualLetters);
+  return (expectedLetters.length - distance) / expectedLetters.length;
 }
 
-/// Compares two words to check if they match.
-/// "Matching" ignores the following:
-/// - capitalization
-/// - punctuation
-/// - missing letters (a single letter can be missing or incorrect)
-bool doWordsMatch(String firstWord, String secondWord) {
-  final firstWordNormalized = _removePunctuation(firstWord.toLowerCase());
-  final secondWordNormalized = _removePunctuation(secondWord.toLowerCase());
-  final firstWordVariations = _getVariations(firstWordNormalized);
-  final secondWordVariations = _getVariations(secondWordNormalized);
-  return firstWordVariations.intersection(secondWordVariations).isNotEmpty;
-}
+double _levenshteinDistance(
+  String s1,
+  String s2, {
+  double insertionCost = 1,
+  double deletionCost = 1,
+  double substitutionCost = 1,
+}) {
+  if (s1 == s2) return 0;
+  if (s1.isEmpty) return s2.length * insertionCost;
+  if (s2.isEmpty) return s1.length * deletionCost;
 
-String _removePunctuation(String word) =>
-    word.replaceAll(RegExp(r'[^\w\s]'), '');
+  final v0 = List<double>.generate(s2.length + 1, (i) => i * insertionCost);
+  final v1 = List<double>.filled(s2.length + 1, 0);
 
-Set<String> _getVariations(String word) {
-  final variations = <String>{word};
-  // Add all variations of the word with one letter removed
-  for (var i = 0; i < word.length; i++) {
-    variations.add(word.substring(0, i) + word.substring(i + 1));
+  for (var i = 0; i < s1.length; i++) {
+    v1[0] = (i + 1) * deletionCost;
+
+    for (var j = 0; j < s2.length; j++) {
+      final cost = (s1[i] == s2[j]) ? 0 : substitutionCost;
+      v1[j + 1] = min(
+        v1[j] + insertionCost,
+        min(
+          v0[j + 1] + deletionCost,
+          v0[j] + cost, // substitution
+        ),
+      );
+    }
+    // Copy v1 to v0 for next iteration
+    for (var j = 0; j <= s2.length; j++) {
+      v0[j] = v1[j];
+    }
   }
-  return variations;
+
+  return v1[s2.length];
 }

@@ -6,6 +6,8 @@
 
 A simple package for comparing words and word sequences.
 
+The target use case is for comparing the results of speech to text.
+
 ## Installation 💻
 
 **❗ In order to start using Word Tools you must have the [Dart SDK][dart_install_link] installed on your machine.**
