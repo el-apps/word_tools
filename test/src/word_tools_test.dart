@@ -1,5 +1,5 @@
 // Not required for test files
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars
 import 'package:test/test.dart';
 import 'package:word_tools/word_tools.dart';
 
