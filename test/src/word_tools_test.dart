@@ -54,6 +54,26 @@ void main() {
         equals(1.0),
       );
     });
+
+    test('correctly compares matching empty strings', () {
+      expect(
+        compareWordSequences(
+          '',
+          '',
+        ),
+        equals(1.0),
+      );
+    });
+
+    test('correctly compares non-matching empty strings', () {
+      expect(
+        compareWordSequences(
+          '',
+          'a',
+        ),
+        equals(0.0),
+      );
+    });
   });
 
   group('real-world tests', () {
