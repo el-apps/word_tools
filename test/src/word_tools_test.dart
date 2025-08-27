@@ -67,7 +67,7 @@ void main() {
       );
     });
 
-    test('Matthew 5:3', () {
+    test('Matthew 5:5', () {
       // Example of very garbled input from user's microphone
       expect(
         compareWordSequences(
