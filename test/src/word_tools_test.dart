@@ -54,16 +54,6 @@ void main() {
         equals(true),
       );
     });
-
-    test('John 1:1', () {
-      expect(
-        doWordSequencesMatch(
-          'In the beginning was the Word, and the Word was with God, and the Word was God.',
-          'In the beginning was the word, and the word was with God, and the word was God.',
-        ),
-        equals(true),
-      );
-    });
   });
 
   group('doWordsMatch', () {
@@ -97,6 +87,48 @@ void main() {
 
     test('does not allow two changed letters', () {
       expect(doWordsMatch('hello', 'hiloo'), equals(false));
+    });
+  });
+
+  group('real-world tests', () {
+    test('Matthew 5:3', () {
+      expect(
+        doWordSequencesMatch(
+          "Blessed are the poor in spirit: for their's is the kingdom of heaven.",
+          'Blessed are the born spirit for their sins the kingdom of heaven',
+        ),
+        equals(true),
+      );
+    });
+
+    test('John 1:1', () {
+      expect(
+        doWordSequencesMatch(
+          'In the beginning was the Word, and the Word was with God, and the Word was God.',
+          'In the beginning was the word, and the word was with God, and the word was God.',
+        ),
+        equals(true),
+      );
+    });
+
+    test('John 1:3', () {
+      expect(
+        doWordSequencesMatch(
+          'All things were made by him; and without him was not any thing made that was made.',
+          'All things were made by him, and without him was not anything made that was made.',
+        ),
+        equals(true),
+      );
+    });
+
+    test('John 1:4', () {
+      expect(
+        doWordSequencesMatch(
+          'In him was life; and the life was the light of men.',
+          'in him was life, and the life was the light of man.',
+        ),
+        equals(true),
+      );
     });
   });
 }
