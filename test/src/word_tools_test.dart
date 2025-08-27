@@ -101,6 +101,19 @@ void main() {
       );
     });
 
+    test('Matthew 5:3', () {
+      // NOTE: this one is a pretty extreme example of the user's microphone
+      //       garbling the input. We don't need it to match, but it should
+      //       at least get a decent score
+      expect(
+        doWordSequencesMatch(
+          'Blessed are the meek: for they shall inherit the earth.',
+          'blessed are the meat so they showing her up here',
+        ),
+        equals(true),
+      );
+    });
+
     test('John 1:1', () {
       expect(
         doWordSequencesMatch(
