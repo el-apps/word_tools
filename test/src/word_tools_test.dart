@@ -127,5 +127,15 @@ void main() {
         greaterThan(0.9),
       );
     });
+
+    test('James 1:5', () {
+      expect(
+        compareWordSequences(
+          'If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.',
+          'If any man lack wisdom, let him ask of God, they giveth all men liberally, and upbraideth not.',
+        ),
+        lessThan(0.8),
+      );
+    });
   });
 }
