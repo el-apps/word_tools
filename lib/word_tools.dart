@@ -1,4 +1,5 @@
 /// A simple package for comparing words and word sequences.
 library;
 
-export 'src/word_tools.dart';
+export 'src/sequence_compare.dart';
+export 'src/word_diff.dart';
