@@ -1,4 +1,5 @@
 import 'package:word_tools/src/sequence_compare.dart';
+import 'package:word_tools/src/string_utils.dart';
 
 /// Internal class to track both original and normalized versions of a word
 class _Word {
@@ -202,21 +203,12 @@ enum DiffStatus {
 /// Returns [_Word] objects with both original (with punctuation) and
 /// normalized (without) versions.
 List<_Word> _splitWithPunctuation(String text) {
-  final normalized = text
-      .replaceAll(RegExp(r'\s+'), ' ') // Normalize whitespace
-      .trim();
-
   final words = <_Word>[];
-  final wordPattern = RegExp(r'\S+'); // Match any non-whitespace sequence
 
-  for (final match in wordPattern.allMatches(normalized)) {
-    final word = match.group(0)!;
-    final cleanedWord = word
-        .replaceAll(RegExp(r'[^\w]'), '') // Remove punctuation for normalization
-        .toLowerCase();
-
-    if (cleanedWord.isNotEmpty) {
-      words.add(_Word(original: word, normalized: cleanedWord));
+  for (final word in text.split(RegExp(r'\s+'))) {
+    final normalized = normalizeToLetters(word);
+    if (normalized.isNotEmpty) {
+      words.add(_Word(original: word, normalized: normalized));
     }
   }
 
