@@ -1,4 +1,4 @@
-import 'package:word_tools/src/string_utils.dart';
+import 'package:word_tools/src/sequence_compare.dart';
 
 /// Internal class to track both original and normalized versions of a word
 class _Word {
@@ -127,7 +127,7 @@ enum DiffStatus {
 
   for (var i = 1; i <= n; i++) {
     for (var j = 1; j <= m; j++) {
-      final score = _computeWordSimilarity(
+      final score = compareWordSequences(
         original[i - 1].normalized,
         transcribed[j - 1].normalized,
       );
@@ -158,7 +158,7 @@ enum DiffStatus {
   var i = n;
   var j = m;
   while (i > 0 && j > 0) {
-    final score = _computeWordSimilarity(
+    final score = compareWordSequences(
       original[i - 1].normalized,
       transcribed[j - 1].normalized,
     );
@@ -221,21 +221,4 @@ List<_Word> _splitWithPunctuation(String text) {
   }
 
   return words;
-}
-
-/// Computes word similarity using Levenshtein distance.
-///
-/// Returns a score from 0.0 to 1.0, where 1.0 is identical.
-/// Expects already-normalized input (lowercase, no punctuation).
-double _computeWordSimilarity(String normalized1, String normalized2) {
-  if (normalized1 == normalized2) return 1;
-
-  final maxLen = normalized1.length > normalized2.length
-      ? normalized1.length
-      : normalized2.length;
-
-  if (maxLen == 0) return 1;
-
-  final distance = levenshteinDistance(normalized1, normalized2);
-  return 1.0 - (distance / maxLen);
 }
