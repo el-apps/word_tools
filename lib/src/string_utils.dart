@@ -73,3 +73,23 @@ class NormalizedWord {
   /// The normalized word text (lowercase, no punctuation).
   final String normalized;
 }
+
+/// Splits text into words, preserving original forms with punctuation.
+///
+/// Returns a list of [NormalizedWord] objects where each contains both the
+/// original word (with punctuation) and the normalized version (lowercase,
+/// no punctuation).
+///
+/// Empty words (containing only punctuation) are skipped.
+List<NormalizedWord> splitWords(String text) {
+  final words = <NormalizedWord>[];
+
+  for (final word in text.split(RegExp(r'\s+'))) {
+    final normalized = normalizeToLetters(word);
+    if (normalized.isNotEmpty) {
+      words.add(NormalizedWord(original: word, normalized: normalized));
+    }
+  }
+
+  return words;
+}

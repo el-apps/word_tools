@@ -8,8 +8,8 @@ import 'package:word_tools/src/string_utils.dart';
 /// Preserves punctuation in output while ignoring it for comparisons.
 List<DiffWord> computeWordDiff(String originalText, String transcribedText) {
   // Normalize and split into words, preserving punctuation
-  final originalWords = _splitWithPunctuation(originalText);
-  final transcribedWords = _splitWithPunctuation(transcribedText);
+  final originalWords = splitWords(originalText);
+  final transcribedWords = splitWords(transcribedText);
 
   // Find matching word indices using LCS (compares normalized versions)
   final (originalIndices, transcribedIndices) =
@@ -191,21 +191,4 @@ enum DiffStatus {
     originalIndices.reversed.toList(),
     transcribedIndices.reversed.toList(),
   );
-}
-
-/// Splits text into words while preserving punctuation.
-///
-/// Returns [NormalizedWord] objects with both original (with punctuation) and
-/// normalized (without) versions.
-List<NormalizedWord> _splitWithPunctuation(String text) {
-  final words = <NormalizedWord>[];
-
-  for (final word in text.split(RegExp(r'\s+'))) {
-    final normalized = normalizeToLetters(word);
-    if (normalized.isNotEmpty) {
-      words.add(NormalizedWord(original: word, normalized: normalized));
-    }
-  }
-
-  return words;
 }
