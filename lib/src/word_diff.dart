@@ -1,14 +1,6 @@
 import 'package:word_tools/src/sequence_compare.dart';
 import 'package:word_tools/src/string_utils.dart';
 
-/// Internal class to track both original and normalized versions of a word
-class _Word {
-  _Word({required this.original, required this.normalized});
-
-  final String original; // with punctuation
-  final String normalized; // lowercase, no punctuation
-}
-
 /// Computes a word-level diff between original and transcribed text.
 ///
 /// Uses Longest Common Subsequence (LCS) to find matching words.
@@ -115,7 +107,10 @@ enum DiffStatus {
 /// When multiple LCS exist, prefers the one with earliest match positions.
 /// Returns (originalIndices, transcribedIndices) - parallel lists of matching
 /// word positions.
-(List<int>, List<int>) _findLCS(List<_Word> original, List<_Word> transcribed) {
+(List<int>, List<int>) _findLCS(
+  List<NormalizedWord> original,
+  List<NormalizedWord> transcribed,
+) {
   final n = original.length;
   final m = transcribed.length;
 
@@ -200,15 +195,15 @@ enum DiffStatus {
 
 /// Splits text into words while preserving punctuation.
 ///
-/// Returns [_Word] objects with both original (with punctuation) and
+/// Returns [NormalizedWord] objects with both original (with punctuation) and
 /// normalized (without) versions.
-List<_Word> _splitWithPunctuation(String text) {
-  final words = <_Word>[];
+List<NormalizedWord> _splitWithPunctuation(String text) {
+  final words = <NormalizedWord>[];
 
   for (final word in text.split(RegExp(r'\s+'))) {
     final normalized = normalizeToLetters(word);
     if (normalized.isNotEmpty) {
-      words.add(_Word(original: word, normalized: normalized));
+      words.add(NormalizedWord(original: word, normalized: normalized));
     }
   }
 

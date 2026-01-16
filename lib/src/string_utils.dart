@@ -57,3 +57,19 @@ String normalizeText(String text) {
 String normalizeToLetters(String text) {
   return text.toLowerCase().replaceAll(RegExp(r'[^\w]'), '');
 }
+
+/// A word with both its original and normalized forms.
+///
+/// Useful for text comparison where you need to preserve the original
+/// form (with punctuation/casing) while comparing normalized versions.
+class NormalizedWord {
+  /// Creates a [NormalizedWord] with the given [original] and [normalized]
+  /// forms.
+  const NormalizedWord({required this.original, required this.normalized});
+
+  /// The original word text (with punctuation and original casing).
+  final String original;
+
+  /// The normalized word text (lowercase, no punctuation).
+  final String normalized;
+}
