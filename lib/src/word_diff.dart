@@ -12,8 +12,10 @@ List<DiffWord> computeWordDiff(String originalText, String transcribedText) {
   final transcribedWords = splitWords(transcribedText);
 
   // Find matching word indices using LCS (compares normalized versions)
-  final (originalIndices, transcribedIndices) =
-      _findLCS(originalWords, transcribedWords);
+  final (originalIndices, transcribedIndices) = _findLCS(
+    originalWords,
+    transcribedWords,
+  );
 
   // Track which transcribed words have been matched
   final matchedTranscribedSet = transcribedIndices.toSet();
@@ -130,8 +132,10 @@ enum DiffStatus {
       if (score >= 0.9) {
         // Match found
         final (len, pos) = dp[i - 1][j - 1];
-        dp[i][j] =
-            (len + 1, pos + i + j); // Sum positions to break ties by earliness
+        dp[i][j] = (
+          len + 1,
+          pos + i + j,
+        ); // Sum positions to break ties by earliness
       } else {
         final (len1, pos1) = dp[i - 1][j];
         final (len2, pos2) = dp[i][j - 1];

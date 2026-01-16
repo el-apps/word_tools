@@ -1,4 +1,3 @@
-
 import 'package:test/test.dart';
 import 'package:word_tools/word_tools.dart';
 
@@ -21,8 +20,9 @@ void main() {
       final diff = computeWordDiff(original, transcribed);
 
       expect(diff.length, 5);
-      final correct =
-          diff.where((w) => w.status == DiffStatus.correct).toList();
+      final correct = diff
+          .where((w) => w.status == DiffStatus.correct)
+          .toList();
       expect(correct.length, 3);
       final extra = diff.where((w) => w.status == DiffStatus.extra).toList();
       expect(extra.length, 2);
@@ -83,20 +83,29 @@ All things were made by him; and without him was not any thing made that was mad
 
       // Verse 1: all 17 words correct
       for (var i = 0; i < 17; i++) {
-        expect(diff[i].status, DiffStatus.correct,
-            reason: 'Verse 1 word $i should be correct');
+        expect(
+          diff[i].status,
+          DiffStatus.correct,
+          reason: 'Verse 1 word $i should be correct',
+        );
       }
 
       // Verse 2: all 8 words missing
       for (var i = 17; i < 25; i++) {
-        expect(diff[i].status, DiffStatus.missing,
-            reason: 'Verse 2 word ${i - 17} should be missing');
+        expect(
+          diff[i].status,
+          DiffStatus.missing,
+          reason: 'Verse 2 word ${i - 17} should be missing',
+        );
       }
 
       // Verse 3: all 17 words correct
       for (var i = 25; i < 42; i++) {
-        expect(diff[i].status, DiffStatus.correct,
-            reason: 'Verse 3 word ${i - 25} should be correct');
+        expect(
+          diff[i].status,
+          DiffStatus.correct,
+          reason: 'Verse 3 word ${i - 25} should be correct',
+        );
       }
     });
 
