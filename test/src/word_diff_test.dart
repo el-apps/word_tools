@@ -213,6 +213,18 @@ All things were made by him; and without him was not any thing made that was mad
       expect(diff[11].text, 'God');
       expect(diff[11].status, DiffStatus.correct);
     });
+
+    test('completely different texts with longer transcription', () {
+      const original = 'a';
+      const transcribed = 'x y z';
+
+      final diff = computeWordDiff(original, transcribed);
+
+      expect(diff.length, 4);
+      expect(diff[0].text, 'a');
+      expect(diff[0].status, DiffStatus.missing);
+      expect(diff.where((w) => w.status == DiffStatus.extra).length, 3);
+    });
   });
 
   group('DiffWord', () {
